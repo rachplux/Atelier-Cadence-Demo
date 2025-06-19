@@ -18,15 +18,13 @@
       "error_heading": "Pakoreguokite toliau pateiktą informaciją:"
     },
     "unit_price": {
-      "per_item": {
-        "single": "{{price}} už kiekvieną",
+      "per_item_html": {
         "one": "{{price}} už {{count}} prekę",
         "other": "{{price}} už {{count}} prekę (-es/-ių)",
         "few": "{{price}} už {{count}} prekę (-es/-ių)",
         "many": "{{price}} už {{count}} prekę (-es/-ių)"
       },
-      "per_unit": {
-        "single": "{{price}}/{{unit}}",
+      "per_unit_html": {
         "one": "{{price}}/{{count}} {{unit}}",
         "other": "{{price}}/{{count}} {{unit}}",
         "few": "{{price}}/{{count}} {{unit}}",
@@ -62,7 +60,9 @@
         "yd": "jard.",
         "ft2": "pėd.²",
         "item": "prekė"
-      }
+      },
+      "per_item_single_html": "{{price}} už kiekvieną",
+      "per_unit_single_html": "{{price}}/{{unit}}"
     }
   },
   "accessibility": {
@@ -105,7 +105,9 @@
     "pause_video": "Pristabdyti vaizdo įrašą",
     "find_country": "Rasti šalį",
     "localization_region_and_language": "Atidaryti regiono ir kalbos parinkiklį",
-    "open_search_modal": "Atidaryti modalinį paieškos langą"
+    "open_search_modal": "Atidaryti modalinį paieškos langą",
+    "decrease_quantity": "Sumažinti kiekį",
+    "increase_quantity": "Padidinti kiekį"
   },
   "actions": {
     "add_to_cart": "Įdėti į krepšelį",
@@ -145,7 +147,8 @@
     "sign_in_options": "Kitos prisijungimo parinktys",
     "sign_up": "Prisiregistruoti",
     "open_image_in_full_screen": "Atidaryti vaizdą per visą ekraną",
-    "sort": "Rūšiuoti"
+    "sort": "Rūšiuoti",
+    "show_all_options": "Rodyti visus variantus"
   },
   "content": {
     "reviews": "apžvalgos (-ų; -a)",
@@ -223,7 +226,7 @@
     "featured_products": "Siūlomi gaminiai",
     "filters": "Filtrai",
     "no_products_found": "Nerasta jokių gaminių.",
-    "price_filter": "Didžiausia kaina yra {{ price }}",
+    "price_filter_html": "Didžiausia kaina yra {{ price }}",
     "use_fewer_filters_html": "Pabandykite naudoti mažiau filtrų arba <a class=\"{{ class }}\" href=\"{{ link }}\">išvalyti visus filtrus</a>.",
     "search": "Ieškoti",
     "search_results_no_results_check_spelling": "Jokių rezultatų pagal užklausą „{{ terms }}“. Patikrinkite rašybą arba vartokite kitą žodį ar frazę.",

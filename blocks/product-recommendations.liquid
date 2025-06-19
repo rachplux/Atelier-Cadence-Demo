@@ -1,37 +1,16 @@
 
 
-{% doc %}
+{%- doc -%}
   Renders product recommendations.
   {section.id} - identifies the parent section for the Section Rendering API
 
   https://shopify.dev/docs/api/section-rendering-api
-{% enddoc %}
+{%- enddoc -%}
 
 <script
   src="{{ 'product-recommendations.js' | asset_url }}"
   type="module"
 ></script>
-
-{% stylesheet %}
-  .product-recommendations-wrapper {
-    width: 100%;
-  }
-
-  .product-recommendations-wrapper:has(product-recommendations[data-shopify-editor-preview]) {
-    width: 100vw;
-  }
-
-  .product-recommendations {
-    display: block;
-  }
-
-  .product-recommendations__skeleton-item {
-    aspect-ratio: 3 / 4;
-    background-color: var(--color-foreground);
-    opacity: var(--skeleton-opacity);
-    border-radius: 4px;
-  }
-{% endstylesheet %}
 
 {% liquid
   case block.settings.layout_type
@@ -190,6 +169,27 @@
     {%- endif -%}
   </div>
 </product-recommendations>
+
+{% stylesheet %}
+  .product-recommendations-wrapper {
+    width: 100%;
+  }
+
+  .product-recommendations-wrapper:has(product-recommendations[data-shopify-editor-preview]) {
+    width: 100vw;
+  }
+
+  .product-recommendations {
+    display: block;
+  }
+
+  .product-recommendations__skeleton-item {
+    aspect-ratio: 3 / 4;
+    background-color: var(--color-foreground);
+    opacity: var(--skeleton-opacity);
+    border-radius: 4px;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

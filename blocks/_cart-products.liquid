@@ -1,5 +1,7 @@
 
 
+{% render 'cart-products' %}
+
 {% stylesheet %}
   .cart-page--empty .cart-items__wrapper {
     display: flex;
@@ -13,8 +15,6 @@
     margin-block-start: var(--margin-lg);
   }
 {% endstylesheet %}
-
-{% render 'cart-products' %}
 
 {% schema %}
 {

@@ -1,4 +1,4 @@
-{% doc %}
+{%- doc -%}
   Renders a video element, from a video object (<video> element) or a video URL (<iframe> element)
 
   Shared parameters:
@@ -25,7 +25,7 @@
 
   @example
   {% render 'video', video: section.settings.video, video_autoplay: true, video_loop: true, section_id: section.id %}
-{% enddoc %}
+{%- enddoc -%}
 
 {% assign video_alt = video_alt | default: video.alt %}
 {% assign alt = 'blocks.load_video' | t: description: video_alt | escape %}
@@ -119,18 +119,6 @@
   {% endcapture %}
 {% endif %}
 
-{% stylesheet %}
-  .video-interaction-hint {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: var(--layer-flat);
-  }
-
-  .video-interaction-hint:hover {
-    opacity: 1;
-  }
-{% endstylesheet %}
-
 {% if video != blank %}
   <deferred-media
     class="{{ video_class }}"
@@ -217,3 +205,15 @@
     </span>
   </div>
 {% endif %}
+
+{% stylesheet %}
+  .video-interaction-hint {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: var(--layer-flat);
+  }
+
+  .video-interaction-hint:hover {
+    opacity: 1;
+  }
+{% endstylesheet %}

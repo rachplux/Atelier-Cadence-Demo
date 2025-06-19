@@ -1,4 +1,4 @@
-{% doc %}
+{%- doc -%}
   Renders the facets actions
 
   @param {string} results_url - the url to remove the filters
@@ -7,7 +7,43 @@
   @param {string} [form_component] - the form component to use for the clear all button
   @param {boolean} [should_show_clear_all] - whether to show the clear all button
   @param {number} [shadow_opacity] - the opacity of the shadow for the sticky action bar
-{% enddoc %}
+{%- enddoc -%}
+
+<div
+  class="facets__actions{% if is_active %} facets__actions--active{% endif %}"
+  style="--color-shadow: rgb(from var(--color-foreground) r g b / {{ shadow_opacity | default: 1.0 }});"
+>
+  {% if should_show_clear_all %}
+    <facet-remove-component
+      data-url="{{ results_url }}"
+    >
+      <button
+        type="button"
+        class="button button-secondary facets__clear-all{% if is_active %} active{% endif %}"
+        ref="clearButton"
+        {% if form_component != blank %}
+          on:click="/removeFilter?form={{ form_component }}"
+          on:keydown="/removeFilter?form={{ form_component }}"
+        {% else %}
+          on:click="/removeFilter?form="
+          on:keydown="/removeFilter?form="
+        {% endif %}
+      >
+        {{- 'actions.clear_all' | t -}}
+      </button>
+    </facet-remove-component>
+  {% endif %}
+
+  {% if products_count > 0 %}
+    <button
+      class="button button-primary facets__see-results"
+      type="button"
+      on:click="dialog-component/closeDialog"
+    >
+      {{- 'actions.see_items' | t: count: products_count -}}
+    </button>
+  {% endif %}
+</div>
 
 {% stylesheet %}
   /* Facets - Actions */
@@ -181,39 +217,3 @@
     }
   }
 {% endstylesheet %}
-
-<div
-  class="facets__actions{% if is_active %} facets__actions--active{% endif %}"
-  style="--color-shadow: rgb(from var(--color-foreground) r g b / {{ shadow_opacity | default: 1.0 }});"
->
-  {% if should_show_clear_all %}
-    <facet-remove-component
-      data-url="{{ results_url }}"
-    >
-      <button
-        type="button"
-        class="button button-secondary facets__clear-all{% if is_active %} active{% endif %}"
-        ref="clearButton"
-        {% if form_component != blank %}
-          on:click="/removeFilter?form={{ form_component }}"
-          on:keydown="/removeFilter?form={{ form_component }}"
-        {% else %}
-          on:click="/removeFilter?form="
-          on:keydown="/removeFilter?form="
-        {% endif %}
-      >
-        {{- 'actions.clear_all' | t -}}
-      </button>
-    </facet-remove-component>
-  {% endif %}
-
-  {% if products_count > 0 %}
-    <button
-      class="button button-primary facets__see-results"
-      type="button"
-      on:click="dialog-component/closeDialog"
-    >
-      {{- 'actions.see_items' | t: count: products_count -}}
-    </button>
-  {% endif %}
-</div>

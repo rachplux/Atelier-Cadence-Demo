@@ -1,34 +1,15 @@
-{% comment %}
-  Renders block content for all blocks that extends the group block.
+{%- doc -%}
+  Renders block content for all blocks that extend the group block.
 
-  @param {object} children - The DOM content of the group block
-  @param {object} settings - The settings of the group block
-  @param {string} shopify_attributes - String with shopify attributes for the editor
-  @param {string} [class] - Custom classes of the group block
-  @param {string} [style] - Custom inline styles of the group block
-{% endcomment %}
-{% stylesheet %}
-  .group-block__link {
-    position: absolute;
-    inset: 0;
-  }
+  @param {string} children - The DOM content of the group block.
+  @param {object} settings - The settings of the group block.
+  @param {string} shopify_attributes - String with Shopify attributes for the editor.
+  @param {string} [class] - Custom classes for the group block.
+  @param {string} [style] - Custom inline styles for the group block.
 
-  .group-block__link ~ :is(.group-block-content, .group-block__media-wrapper) {
-    pointer-events: none;
-    a,
-    button,
-    input,
-    textarea,
-    select {
-      pointer-events: auto;
-    }
-  }
-
-  /* Needs the .group-block__link ~ to be specific enough to take effect. */
-  .group-block__link ~ .group-block-content--design-mode {
-    pointer-events: auto;
-  }
-{% endstylesheet %}
+  @example
+  {% render 'group', children: children, settings: block.settings, shopify_attributes: block.shopify_attributes %}
+{%- enddoc -%}
 
 <div
   class="
@@ -86,3 +67,26 @@
     {{- children -}}
   </div>
 </div>
+
+{% stylesheet %}
+  .group-block__link {
+    position: absolute;
+    inset: 0;
+  }
+
+  .group-block__link ~ :is(.group-block-content, .group-block__media-wrapper) {
+    pointer-events: none;
+    a,
+    button,
+    input,
+    textarea,
+    select {
+      pointer-events: auto;
+    }
+  }
+
+  /* Needs the .group-block__link ~ to be specific enough to take effect. */
+  .group-block__link ~ .group-block-content--design-mode {
+    pointer-events: auto;
+  }
+{% endstylesheet %}

@@ -1,4 +1,4 @@
-{% doc %}
+{%- doc -%}
   Intended for use in a block similar to the button block.
 
   @param {string} link - link to render
@@ -6,19 +6,7 @@
 
   @example
   {% render 'button', link: '/collections/all' %}
-{% enddoc %}
-
-{% stylesheet %}
-  .link {
-    text-decoration: none;
-    text-decoration-color: currentcolor;
-
-    &:hover {
-      color: var(--color-primary-hover);
-      text-decoration-color: transparent;
-    }
-  }
-{% endstylesheet %}
+{%- enddoc -%}
 
 <a
   {% if link == blank %}
@@ -41,3 +29,15 @@
 >
   {{ block.settings.label }}
 </a>
+
+{% stylesheet %}
+  .link {
+    text-decoration: none;
+    text-decoration-color: currentcolor;
+
+    &:hover {
+      color: var(--color-primary-hover);
+      text-decoration-color: transparent;
+    }
+  }
+{% endstylesheet %}

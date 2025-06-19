@@ -4,25 +4,6 @@
   type="module"
 ></script>
 
-{% stylesheet %}
-  .product-recommendations__skeleton-item {
-    aspect-ratio: 3 / 4;
-    background-color: var(--color-foreground);
-    opacity: var(--skeleton-opacity);
-    border-radius: 4px;
-  }
-
-  @media screen and (width < 750px) {
-    .product-recommendations__skeleton-item:nth-child(2n + 1) {
-      display: none;
-    }
-  }
-
-  product-recommendations:has([data-has-recommendations='false']) {
-    display: none;
-  }
-{% endstylesheet %}
-
 {% liquid
   case section.settings.layout_type
     when 'grid'
@@ -145,8 +126,7 @@
               ref: 'resourceListCarousel',
               slides: slides,
               slide_count: recommendations.products.size,
-              settings: section.settings,
-              section_id: section.id
+              settings: section.settings
             %}
         {% endcase %}
       </div>
@@ -188,6 +168,25 @@
     {%- endif -%}
   </div>
 </product-recommendations>
+
+{% stylesheet %}
+  .product-recommendations__skeleton-item {
+    aspect-ratio: 3 / 4;
+    background-color: var(--color-foreground);
+    opacity: var(--skeleton-opacity);
+    border-radius: 4px;
+  }
+
+  @media screen and (width < 750px) {
+    .product-recommendations__skeleton-item:nth-child(2n + 1) {
+      display: none;
+    }
+  }
+
+  product-recommendations:has([data-has-recommendations='false']) {
+    display: none;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

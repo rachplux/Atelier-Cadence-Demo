@@ -1,11 +1,5 @@
 
 
-{% stylesheet %}
-  .placeholder-video {
-    aspect-ratio: 5 / 3;
-  }
-{% endstylesheet %}
-
 {% capture video_style %}
   {%  render 'spacing-style', settings: block.settings %}
   {% render 'border-override', settings: block.settings %}
@@ -36,6 +30,12 @@
     section_id: section.id
   %}
 {% endif %}
+
+{% stylesheet %}
+  .placeholder-video {
+    aspect-ratio: 5 / 3;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

@@ -68,7 +68,6 @@
     --letter-spacing-sm: 0.06em;
     --letter-spacing-md: 0.13em;
 
-
     /* Font families */
     --font-body--family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
     --font-body--style: {{ settings.type_body_font.style }};
@@ -189,7 +188,6 @@
         assign font_size_value = settings[size_setting] | times: 1
         assign font_size_string = '[font_size_value]' | replace: '[font_size_value]', font_size_value
         assign index = font_size_values | find_index: font_size_string
-
 
         if font_size_value >= fluid_size_cutoff
 
@@ -495,7 +493,7 @@
 
     /* Utilities */
     --backdrop-opacity: 0.15;
-    --backdrop-color: var(--color-foreground);
+    --backdrop-color: var(--color-shadow);
     --minimum-touch-target: 44px;
     --disabled-opacity: 0.5;
     --skeleton-opacity: 0.025;
@@ -528,7 +526,6 @@
     --card-bg-hover: rgb(from var(--color-foreground) r g b / 0.03);
     --card-border-hover: rgb(from var(--color-foreground) r g b / 0.3);
     --card-border-focus: rgb(from var(--color-border) r g b / 0.1);
-
 
     /* Cart */
     --cart-primary-font-family: var(--font-body--family);

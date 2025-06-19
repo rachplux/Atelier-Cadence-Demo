@@ -18,14 +18,12 @@
       "error_heading": "Realiza los ajustes siguientes:"
     },
     "unit_price": {
-      "per_item": {
-        "single": "{{price}} cada artículo",
+      "per_item_html": {
         "one": "{{price}} por {{count}} artículo",
         "other": "{{price}} por {{count}} artículos",
         "many": "{{price}} por {{count}} artículos"
       },
-      "per_unit": {
-        "single": "{{price}}/{{unit}}",
+      "per_unit_html": {
         "one": "{{price}}/{{count}}{{unit}}",
         "other": "{{price}}/{{count}}{{unit}}",
         "many": "{{price}}/{{count}}{{unit}}"
@@ -59,7 +57,9 @@
         "yd": "yd",
         "ft2": "pies²",
         "item": "artículo"
-      }
+      },
+      "per_item_single_html": "{{price}} cada artículo",
+      "per_unit_single_html": "{{price}}/{{unit}}"
     }
   },
   "accessibility": {
@@ -86,7 +86,7 @@
       "other": "{{ count }} filtros aplicados",
       "many": "{{ count }} filtros aplicados"
     },
-    "account": "Abrir menú desplegable de la cuenta",
+    "account": "Abrir menú de cuenta",
     "cart": "Carrito",
     "cart_count": "Total de artículos en el carrito",
     "menu": "Menú",
@@ -96,12 +96,14 @@
     "loading_product_recommendations": "Carga de recomendaciones de productos",
     "discount": "Aplicar un código de descuento",
     "discount_applied": "Aplicar código de descuento: {{ code }}",
-    "open_cart_drawer": "Abrir el carrito lateral",
+    "open_cart_drawer": "Abrir carrito",
     "pause_video": "Pausar el video",
     "inventory_status": "Estado del inventario",
     "find_country": "Buscar país",
     "localization_region_and_language": "Abrir selector de región e idioma",
-    "open_search_modal": "Abrir modal de búsqueda"
+    "open_search_modal": "Abrir modal de búsqueda",
+    "decrease_quantity": "Disminuir cantidad",
+    "increase_quantity": "Aumentar cantidad"
   },
   "actions": {
     "add_to_cart": "Agregar al carrito",
@@ -140,7 +142,8 @@
     "open_image_in_full_screen": "Abrir imagen a pantalla completa",
     "sign_in_options": "Otras opciones de inicio de sesión",
     "sign_up": "Registrarse",
-    "sort": "Ordenar"
+    "sort": "Ordenar",
+    "show_all_options": "Mostrar todas las opciones"
   },
   "content": {
     "reviews": "reseñas",
@@ -219,7 +222,7 @@
     "use_fewer_filters_html": "Prueba a utilizar menos filtros o <a class=\"{{ class }}\" href=\"{{ link }}\">elimina todos los filtros</a>.",
     "featured_products": "Productos destacados",
     "filters": "Filtros",
-    "price_filter": "El precio más alto es {{ price }}",
+    "price_filter_html": "El precio más alto es {{ price }}",
     "blog_details_separator": "|",
     "read_more": "Leer más...",
     "account_title": "Cuenta",

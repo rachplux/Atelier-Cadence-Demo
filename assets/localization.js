@@ -115,10 +115,12 @@ class LocalizationFormComponent extends Component {
   resizeLanguageInput() {
     const { languageInput } = this.refs;
 
+    if (!languageInput) return;
+
     // Hide all options except the selected option
     for (const option of languageInput.options) {
       if (!option.selected) {
-        option.dataset.optionLabel = option.innerText;
+        option.dataset.optionLabel = option.textContent || '';
         option.innerText = '';
       }
     }
@@ -144,7 +146,7 @@ class LocalizationFormComponent extends Component {
     // Add back all option labels
     for (const option of languageInput.options) {
       if (option.dataset.optionLabel) {
-        option.innerText = option.dataset.optionLabel;
+        option.textContent = option.dataset.optionLabel;
         delete option.dataset.optionLabel;
       }
     }
@@ -371,6 +373,8 @@ class LocalizationFormComponent extends Component {
    */
   resetForm() {
     const { search } = this.refs;
+
+    if (!search) return;
 
     if (search.value != '') {
       search.value = '';

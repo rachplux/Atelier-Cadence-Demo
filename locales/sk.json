@@ -18,15 +18,13 @@
       "error_heading": "Upravte tieto údaje:"
     },
     "unit_price": {
-      "per_item": {
-        "single": "{{price}} za položku",
+      "per_item_html": {
         "one": "{{price}} za {{count}} položku",
         "other": "{{price}} za {{count}} položky/položiek",
         "few": "{{price}} za {{count}} položky/položiek",
         "many": "{{price}} za {{count}} položky/položiek"
       },
-      "per_unit": {
-        "single": "{{price}}/{{unit}}",
+      "per_unit_html": {
         "one": "{{price}}/{{count}} {{unit}}",
         "other": "{{price}}/{{count}} {{unit}}",
         "few": "{{price}}/{{count}} {{unit}}",
@@ -62,7 +60,9 @@
         "yd": "yd",
         "ft2": "ft²",
         "item": "položka"
-      }
+      },
+      "per_item_single_html": "{{price}} za položku",
+      "per_unit_single_html": "{{price}}/{{unit}}"
     }
   },
   "accessibility": {
@@ -105,7 +105,9 @@
     "pause_video": "Pozastaviť video",
     "find_country": "Nájsť krajinu",
     "localization_region_and_language": "Otvoriť výber oblasti a jazyka",
-    "open_search_modal": "Otvoriť modálne okno vyhľadávania"
+    "open_search_modal": "Otvoriť modálne okno vyhľadávania",
+    "decrease_quantity": "Znížiť množstvo",
+    "increase_quantity": "Zvýšiť množstvo"
   },
   "actions": {
     "add_to_cart": "Pridať do košíka",
@@ -145,7 +147,8 @@
     "sign_in_options": "Ďalšie možnosti prihlásenia",
     "sign_up": "Zaregistrovať sa",
     "open_image_in_full_screen": "Otvoriť obrázok na celú obrazovku",
-    "sort": "Zoradiť"
+    "sort": "Zoradiť",
+    "show_all_options": "Zobraziť všetky možnosti"
   },
   "content": {
     "reviews": "recenz.",
@@ -226,7 +229,7 @@
     "no_products_found": "Nenašli sa žiadne produkty.",
     "use_fewer_filters_html": "Skúste použiť menej filtrov alebo <a class=\"{{ class }}\" href=\"{{ link }}\">vymazať všetky filtre</a>.",
     "filters": "Filtre",
-    "price_filter": "Najvyššia cena je {{ price }}",
+    "price_filter_html": "Najvyššia cena je {{ price }}",
     "blog_details_separator": "|",
     "read_more": "Prečítať si viac...",
     "wrong_password": "Heslo je nesprávne",

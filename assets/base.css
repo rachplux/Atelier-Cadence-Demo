@@ -74,6 +74,28 @@ select {
   z-index: var(--layer-flat);
 }
 
+.product-card__link {
+  position: absolute;
+  inset: 0;
+}
+
+.product-card__content {
+  position: relative;
+  pointer-events: none;
+}
+
+.product-card__content :is(a, button, input, label, select, .card-gallery) {
+  pointer-events: auto;
+}
+
+.product-card__content .card-gallery {
+  cursor: pointer;
+}
+
+.product-card__content slideshow-component {
+  --cursor: pointer;
+}
+
 .predictive-search-results__card .product-card,
 .predictive-search-results__card .collection-card,
 .predictive-search-results__card .resource-card {
@@ -165,6 +187,9 @@ select {
 dialog {
   background-color: var(--color-background);
   color: var(--color-foreground);
+
+  /* the ::backdrop inherits from the originating element, custom properties must be set on the dialog element */
+  --backdrop-color: var(--color-shadow);
 }
 
 p,
@@ -898,7 +923,7 @@ summary::-webkit-details-marker {
   height: fit-content;
 }
 
-.product-grid__link.product-grid__link {
+.product-grid__card.product-grid__card {
   display: flex;
   flex-flow: column nowrap;
   gap: var(--product-card-gap);
@@ -910,7 +935,7 @@ summary::-webkit-details-marker {
   overflow: hidden;
 }
 
-[product-grid-view='zoom-out'] .product-grid__link {
+[product-grid-view='zoom-out'] .product-grid__card {
   row-gap: var(--padding-xs);
 }
 
@@ -933,17 +958,17 @@ summary::-webkit-details-marker {
   }
 }
 
-.product-grid__link .group-block > * {
+.product-grid__card .group-block > * {
   @media screen and (width <= 749px) {
     flex-direction: column;
   }
 }
 
-ul[product-grid-view='zoom-out'] .product-grid__link > * {
+ul[product-grid-view='zoom-out'] .product-grid__card > * {
   display: none;
 }
 
-ul[product-grid-view='zoom-out'] .product-grid__link .card-gallery {
+ul[product-grid-view='zoom-out'] .product-grid__card .card-gallery {
   display: block;
 }
 
@@ -1946,7 +1971,8 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
 }
 
 @media screen and (width >= 750px) {
-  .sticky-content--desktop {
+  .sticky-content--desktop,
+  .sticky-content--desktop.full-height--desktop > .group-block {
     position: sticky;
     top: var(--sticky-header-offset, 0);
     z-index: var(--layer-flat);
@@ -1980,7 +2006,8 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
 }
 
 @media screen and (width >= 750px) {
-  .card-gallery:is(:focus-within, :hover) .quick-add__button {
+  product-card:focus-within .quick-add__button,
+  .card-gallery:hover .quick-add__button {
     display: grid;
     will-change: margin, opacity;
     animation: elementSlideInTop var(--animation-speed) var(--animation-easing);
@@ -3520,6 +3547,31 @@ slideshow-controls:has(.slideshow-controls__dots) {
   }
 }
 
+.slideshow-controls__thumbnail {
+  position: relative;
+}
+
+.slideshow-controls__thumbnail-badge {
+  position: absolute;
+  top: var(--padding-2xs);
+  right: var(--padding-2xs);
+  width: clamp(16px, 10%, 20px);
+  height: clamp(16px, 10%, 20px);
+  background-color: var(--color-background);
+  border-radius: var(--style-border-radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 1px rgba(from var(--color-foreground) r g b / 5%);
+}
+
+.slideshow-controls__thumbnail-badge svg {
+  width: 60%;
+  height: 60%;
+  fill: var(--color-foreground);
+  opacity: 0.6;
+}
+
 /* Slideshow Play/Pause */
 .slideshow-control:is(.icon-pause, .icon-play) {
   color: var(--color-active);
@@ -4048,7 +4100,7 @@ text-component {
 }
 
 /* Product card title truncation - applied only to zoom-out view */
-[product-grid-view='zoom-out'] :is(.product-card, .product-grid__link) :is(h4, .h4) {
+[product-grid-view='zoom-out'] :is(.product-card, .product-grid__card) :is(h4, .h4) {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -4058,7 +4110,7 @@ text-component {
 
 /* Product card title truncation - applied on mobile regardless of view */
 @media screen and (width < 750px) {
-  :is(.product-card, .product-grid__link) :is(h4, .h4) {
+  :is(.product-card, .product-grid__card) :is(h4, .h4) {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
