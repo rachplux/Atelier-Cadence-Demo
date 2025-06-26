@@ -1,0 +1,119 @@
+{% style %}
+  td {
+    padding: 0 1.5em 0.75em 0;
+  }
+{% endstyle %}
+{% assign specs = product.metafields.subwoofer.technical_data.value %}
+{% if specs != blank %}
+  {% assign labels = '' %}
+  {% for spec in specs %}
+    {% if spec.label %}
+      {% assign labels = labels | append: spec.label | append: '|' %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign unique_labels = labels | split: '|' | uniq %}
+
+  {% comment %} 定義表格欄位 {% endcomment %}
+  {% assign spec_fields = 'label,Model,text,false|sealed_box_volume,Sealed Box Volume,text,false|ported_box_volume,Ported Box Volume,text,false|port_diameter,Port Diameter,text,false|port_length,Port Length,text,false|vas,Vas,text,false|fs,FS,text,false|qts,QTS,text,false|xmax,Xmax,text,false'
+    | split: '|'
+  %}
+  {% comment %} 開始寫table {% endcomment %}
+  <table>
+    <tbody>
+      {% for field in spec_fields %}
+        {% liquid
+          assign keys_title_type = field | split: ','
+          assign keys = keys_title_type[0]
+          assign title = keys_title_type[1]
+          assign type = keys_title_type[2]
+        %}
+        <tr>
+          <td>
+            <strong>{{ title }}</strong>
+          </td>
+          {% for label in unique_labels %}
+            <td>
+              {% for spec in specs %}
+                {% if spec.label == label %}
+                  {% if type == 'text' %}
+                    {{ spec[keys] }}
+                  {% elsif type == 'boolean' %}
+                    {% if spec[key] == true %}
+                      Yes
+                    {% else %}
+                      No
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% comment %}
+  {% assign specs = product.metafields.subwoofer.technical_data.value %}
+
+  {% if specs != blank %}
+    {%- comment -%}
+      ▍建立不重複的 model 陣列
+    {%- endcomment -%}
+    {% assign model_array = '' | split: ',' %}
+    {% for spec in specs %}
+      {% assign current_model = spec.model | strip %}
+      {% assign model_array = model_array | push: current_model %}
+    {% endfor %}
+    {% assign unique_models = model_array | uniq %}
+    {% assign model_count = unique_models | size %}
+
+    <p>
+      共有 <strong>{{ model_count }}</strong> 個不同型號：
+    </p>
+    <ul>
+      {% for model in unique_models %}
+        <li>{{ model }}</li>
+      {% endfor %}
+    </ul>
+
+    {%- comment -%}
+      ▍欄位設定
+    {%- endcomment -%}
+    {% assign spec_fields = 'label,Model,text,false|sealed_box_volume,Sealed Box Volume,text,false|ported_box_volume,Ported Box Volume,text,false|port_diameter,Port Diameter,text,false|port_length,Port Length,text,false|vas,Vas,text,false|fs,FS,text,false|qts,QTS,text,false|xmax,Xmax,text,false'
+      | split: '|'
+    %}
+
+    <table>
+      <thead>
+        <tr>
+          <th>項目</th>
+          {% for spec in specs %}
+            <th>{{ spec.model }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for field in spec_fields %}
+          {% liquid
+            assign keys_title_type = field | split: ','
+            assign keys = keys_title_type[0]
+            assign title = keys_title_type[1]
+            assign type = keys_title_type[2]
+          %}
+          <tr>
+            <td>{{ title }}</td>
+            {% for spec in specs %}
+              <td>{{ spec[keys] }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  {% else %}
+    <p class="warning">Techinal Data not available</p>
+  {% endif %}
+{% endcomment %}

@@ -1,0 +1,183 @@
+{% style %}
+  td {
+    padding: 0 1.5em 0.75em 0;
+  }
+{% endstyle %}
+{% assign specs = product.metafields.speaker.specification.value %}
+{% if specs != blank %}
+  <div class="container">
+    <div class="table">
+      <table>
+        <tbody>
+          {% assign spec_fields = 'label,Model,text,false|size,Speaker Size,text,false|type,Design,text,false|sold_unit,Sold Unit,text,false|rms_power,RMS Power,text,false|peak_power,Peak Power,text,false|magnet,Magnet,text,false|tweeter_design,Tweeter Design,text,false|midrange_design,Midrange Design,text,false|frequency_response,Frequency Response,text,false|spl,Sensitivity @ 1M/1W,text,false|impedance,Impedance,text,false|mounting_depth,Mounting Depth,text,false'
+            | split: '|'
+          %}
+
+          {% for field in spec_fields %}
+            {% liquid
+              assign key_title_type_has_range = field | split: ','
+              assign key = key_title_type_has_range[0]
+              assign title = key_title_type_has_range[1]
+              assign type = key_title_type_has_range[2]
+              assign has_range = key_title_type_has_range[3]
+            %}
+            {% if specs[key] == blank and key == 'magnet' %}
+              <tr>
+                <td>
+                  <strong>{{ title }}</strong>
+                </td>
+                <td>
+                  {{ specs.magnet_type }}
+                  {{ specs.magnet_weight.value }}
+                  {{ specs.magnet_weight.unit }}.
+                </td>
+              </tr>
+
+            {% elsif specs[key] == blank and key == 'voice_coil' %}
+              <tr>
+                <td>
+                  <strong>{{ title }}</strong>
+                </td>
+                <td>
+                  {{ specs.voice_coil_size.value }}
+                  {{ specs.voice_coil_size.unit }}
+                  {{ specs.voice_coil_feature }}
+                </td>
+              </tr>
+
+            {% else %}
+              {% if specs[key] != blank or type == 'boolean' %}
+                <tr>
+                  <td>
+                    <strong>{{ title }}</strong>
+                  </td>
+                  <td>
+                    {% if type == 'text' %}
+                      {{ specs[key] | default: 'N/A' | metafield_text }}
+                    {% elsif type == 'weight' or 'dimension' %}
+                      {% if specs[key] != blank %}
+                        {{ specs[key].value }}
+                        {{ specs[key].unit }}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    {% elsif type == 'boolean' %}
+                      {% if specs[key] == true %}
+                        Yes
+                        {% if has_range == 'true' %}
+                          {% assign range_key = key | append: '_range' %}
+                          {% if specs[range_key] != blank %}
+                            ( {{ specs[range_key] }})
+                          {% endif %}
+                        {% endif %}
+                      {% else %}
+                        No
+                      {% endif %}
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}
+
+{% comment %}
+  {% if specs != blank %}
+    <div class="container">
+      <div class="table">
+        <table>
+          <thead>
+            <tr>
+              <th rowspan="2">{{ product.metafields.system.model_number.value }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% assign spec_fields = 'label,Model,text,false|size,Speaker Size,text,false|type,Design,text,false|sold_unit,Sold Unit,text,false|rms_power,RMS Power,text,false|peak_power,Peak Power,text,false|magnet,Magnet,text,false|magnet_weight,Magnet Weight,text,false|magnet_type,Magnet Type,text,false|voice_coil_size,Voice Coil Size,dimension,false|voice_coil_feature,Voice Coil Feature,text,false|tweeter_design,Tweeter Design,text,false|midrange_design,Midrange Design,text,false|frequency_respnse,Frequency Response,text,false|spl,Sensitivity @ 1M/1W,text,false|impedance,Impedance,text,false|mounting_depth,Mounting Depth,text,false'
+              | split: '|'
+            %}
+
+            {% for field in spec_fields %}
+              {% liquid
+                assign key_title_type_has_range = field | split: ','
+                assign key = key_title_type_has_range[0]
+                assign title = key_title_type_has_range[1]
+                assign type = key_title_type_has_range[2]
+                assign has_range = key_title_type_has_range[3]
+              %}
+
+              {% if specs[key] != blank or type == 'boolean' %}
+                <tr>
+                  <td>
+                    <strong>
+                      {{ title }}
+                    </strong>
+                  </td>
+                  <td>
+                    {% if type == 'text' %}
+                      {{ specs[key] | default: 'N/A' | metafield_text }}
+
+                    {% elsif type == 'weight' or 'dimension' %}
+                      {% if specs[key] != blank %}
+                        {{ specs[key].value }}
+                        {{ specs[key].unit }}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    {% elsif type == 'boolean' %}
+                      {% if specs[key] == true %}
+                        Yes
+                        {% if has_range == 'true' %}
+                          {% assign range_key = key | append: '_range' %}
+                          {% if specs[range_key] != blank %}
+                            ( {{ specs[range_key] }})
+                          {% endif %}
+                        {% endif %}
+                      {% else %}
+                        No
+                      {% endif %}
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% endif %}
+{% endcomment %}
+
+{% comment %}
+   <p>{{ product.category }}</p>
+
+  <hr class="divider">
+  {% for variant in product.variants -%}
+    {%- capture options -%}
+        {% for option in variant.options -%}
+          {{ option }}{%- unless forloop.last -%}/{%- endunless -%}
+        {%- endfor %}
+      {%- endcapture -%}
+
+    {{ variant.sku }}: {{ options }}
+  {%- endfor %}
+
+  <hr class="divider">
+  {% assign spec_list = product.metafields.subwoofer.technical_data.value %}
+  {% if spec_list %}
+    {% for spec in spec_list %}
+      {% if spec.label %}
+        <p>
+          <strong>{{ spec.label.value }}</strong>
+        </p>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <p>No technical data available.</p>
+  {% endif %}
+
+  <hr class="divider">
+{% endcomment %}

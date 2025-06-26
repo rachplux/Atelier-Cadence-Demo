@@ -1,0 +1,75 @@
+<div class="container">
+  {% if block.setting.table_header %}
+    <div class="heading">
+      <p>
+        <strong> {{ block.settings.table_header | default: '' }}</strong>
+      </p>
+    </div>
+  {% endif %}
+  <div class="table">
+    {% if block.settings.select_table %}
+      {% case block.settings.select_table %}
+        {% when 'speaker_spec' %}
+          {% render 'speaker-spec' %}
+        {% when 'subwoofer_tech_data' %}
+          {% render 'tech-data' %}
+        {% when 'amplifier_spec' %}
+          <p>Amplifier Spec</p>
+      {% endcase %}
+    {% endif %}
+  </div>
+</div>
+
+{% if block.settings.add_richtext %}
+  {{ block.settings.add_richtext }}
+{% endif %}
+{% schema %}
+{
+  "name": "Specification",
+  "tag": "block",
+  "settings": [
+    {
+      "type": "text",
+      "id": "table_header",
+      "label": "Heading",
+      "default": "Specification"
+    },
+    {
+      "type": "select",
+      "id": "select_table",
+      "label": "Submit table",
+      "options": [
+        {
+          "value": "none",
+          "label": ""
+        },
+        {
+          "value": "speaker_spec",
+          "label": "Speaker Spec"
+        },
+        {
+          "value": "subwoofer_tech_data",
+          "label": "Subwoofer Tech Data"
+        },
+        {
+          "value": "amplifier_spec",
+          "label": "Amplifier Spec"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "richtext",
+      "id": "add_richtext",
+      "label": "Add custom table or text",
+      "info": "Content will be rendered as HTML. Supports paragraphs, lists, and other formatted text."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Specification",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
